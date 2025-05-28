@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: hospital-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hospital_db
+      MYSQL_USER: hospital_user
+      MYSQL_PASSWORD: hospital_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: hospital-phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      #PMA_USER: hospital_user (Si se descomenta entrara solo a PhpMyAdmin)
+      #PMA_PASSWORD: hospital_pass (Si se descomenta entrara solo a PhpMyAdmin)
+      PMA_ARBITRARY: 0 
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
