@@ -9,11 +9,12 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: hospital_db
       MYSQL_USER: hospital_user
-      MYSQL_PASSWORD: hospital_pass
+      MYSQL_PASSWORD: pass
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./mysql-config/my.cnf:/etc/mysql/conf.d/my.cnf
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
